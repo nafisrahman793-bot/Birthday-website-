@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Someone Special ✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Floating Hearts Background */
+        .heart {
+            position: absolute;
+            color: #ff80ab;
+            font-size: 20px;
+            pointer-events: none;
+            animation: floatUp 6s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0.8; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Glassmorphism Card */
+        .card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            width: 85%;
+            max-width: 400px;
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            color: #c2185b;
+            font-size: 3rem;
+            margin: 10px 0;
+        }
+
+        .sub-text {
+            color: #880e4f;
+            font-weight: 300;
+            margin-bottom: 25px;
+        }
+
+        /* Interactive Cake */
+        .cake-box {
+            font-size: 80px;
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        .cake-box:active { transform: scale(0.9); }
+
+        .flame {
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 20px;
+            background: #ffca28;
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 10px #ffca28;
+            animation: flicker 0.1s infinite alternate;
+        }
+
+        @keyframes flicker {
+            from { opacity: 0.8; }
+            to { opacity: 1; }
+        }
+
+        .hidden { display: none; }
+
+        .btn {
+            background: #ad1457;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(173, 20, 87, 0.3);
+        }
+
+        #final-message {
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="step1">
+        <div class="cake-box" onclick="handleCut()">
+            <div class="flame" id="flame"></div>
+            🎂
+        </div>
+        <h1>Happy Birthday</h1>
+        <p class="sub-text">To someone who inspires me every day. Make a wish and tap the cake to cut it...</p>
+        <button class="btn" onclick="handleCut()">Cut the Cake 🍰</button>
+    </div>
+
+    <div class="card hidden" id="final-message">
+        <div style="font-size: 60px;">🌸</div>
+        <h1 style="font-size: 2.5rem;">Best Wishes!</h1>
+        <p style="color: #444; line-height: 1.6;">
+            I feel truly lucky to have a senior like you. Your grace and kindness make everything better. <br><br>
+            May your year be as wonderful as you are.
+        </p>
+        <p style="font-weight: 600; color: #c2185b;">— From someone who truly admires you.</p>
+    </div>
+
+    <script>
+        // Create Floating Hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️'; 
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            heart.style.fontSize = (Math.random() * 15 + 10) + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 6000);
+        }
+        setInterval(createHeart, 400);
+
+        // Handle Cake Cutting
+        function handleCut() {
+            const flame = document.getElementById('flame');
+            flame.classList.add('hidden'); // Extinguish candle
+
+            // Celebration Effect (Simple Confetti)
+            for(let i=0; i<30; i++) {
+                createSparkle();
+            }
+
+            // Transition to final message
+            setTimeout(() => {
+                document.getElementById('step1').classList.add('hidden');
+                document.getElementById('final-message').classList.remove('hidden');
+            }, 800);
+        }
+
+        function createSparkle() {
+            const s = document.createElement('div');
+            s.style.position = 'absolute';
+            s.style.width = '8px';
+            s.style.height = '8px';
+            s.style.backgroundColor = '#ad1457';
+            s.style.borderRadius = '50%';
+            s.style.left = '50%';
+            s.style.top = '50%';
+            document.body.appendChild(s);
+
+            const dx = (Math.random() - 0.5) * 300;
+            const dy = (Math.random() - 0.5) * 300;
+
+            s.animate([
+                { transform: 'translate(0, 0)', opacity: 1 },
+                { transform: `translate(${dx}px, ${dy}px)`, opacity: 0 }
+            ], { duration: 1000, easing: 'ease-out' }).onfinish = () => s.remove();
+        }
+    </script>
+</body>
+</html>
